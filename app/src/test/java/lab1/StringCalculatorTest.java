@@ -53,7 +53,11 @@ class StringCalculatorTest {
         assertEquals(20, StringCalculator.Add("//[...]\n1,2...5\n10...2"));
     }
 
-    @Test void multipleLongDelimiters() {
+    @Test void multipleLongDelimiters1() {
+        assertEquals(6, StringCalculator.Add("//[...][..][.]\n1..1.1,1...1\n1"));
+    }
+
+    @Test void multipleLongDelimiters2() {
         assertEquals(6, StringCalculator.Add("//[*][***][**]\n1*1**1,1***1\n1"));
     }
 }
