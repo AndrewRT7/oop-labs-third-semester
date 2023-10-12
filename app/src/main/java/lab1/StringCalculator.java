@@ -1,11 +1,13 @@
 package lab1;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class StringCalculator {
     public static int Add(String input) {
         int sum = 0;
+        ArrayList <Integer> negatives = new ArrayList<>();
 
         if (input.isEmpty()) {
             sum = 0;
@@ -17,7 +19,13 @@ public class StringCalculator {
                 String numbersToParse = input.substring(delimPosition + 1);
                 String[] numsplit = numbersToParse.split(customDelimiter + "|,|\n");
                 for (int i = 0; i < numsplit.length; i++) {
-                    sum += Integer.parseInt(numsplit[i]);
+                    int number = Integer.parseInt(numsplit[i]);
+                    if (number < 0) {
+                    negatives.add(number);
+                    }
+                    else {
+                        sum += number;
+                    }
                 }
             }
         }
@@ -26,6 +34,9 @@ public class StringCalculator {
             for (int i = 0; i < numsplit.length; i++) {
                 int number = Integer.parseInt(numsplit[i]);
                 sum += number;
+                if (number < 0) {
+                    negatives.add(number);
+                }
             }
         }
         else if (!input.isEmpty()) {
@@ -33,6 +44,12 @@ public class StringCalculator {
             if (number >= 0) {
                 sum += number;
             }
+            else if (number < 0) {
+                negatives.add(number);
+            }
+        }
+        if (!negatives.isEmpty()) {
+            throw new IllegalArgumentException("Negatives are not allowed: " + negatives);
         }
         return sum;
     }
