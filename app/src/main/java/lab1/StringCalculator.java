@@ -16,12 +16,13 @@ public class StringCalculator {
         }
         else if (input.startsWith("//")) {
             Matcher matcher = Pattern.compile("\\[([^\\]]+)\\]").matcher(input);
-            if (matcher.find()) {
+            while (matcher.find()) {
                 customDelimiters.add(Pattern.quote(matcher.group(1)));
             }
             if (customDelimiters.isEmpty()) {
                 customDelimiters.add(Pattern.quote(input.substring(2, 3)));
             }
+            customDelimiters.sort((a, b) -> Integer.compare(b.length(), a.length()));
             String customDelimitersPattern = String.join("|", customDelimiters);
             String inputToParse = input.substring(input.indexOf("\n") + 1);
             String[] numsplit = inputToParse.split(customDelimitersPattern + "|,|\n");
