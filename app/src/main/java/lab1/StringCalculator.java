@@ -23,7 +23,7 @@ public class StringCalculator {
                     if (number < 0) {
                     negatives.add(number);
                     }
-                    else {
+                    else if (number >= 0 && number < 1001) {
                         sum += number;
                     }
                 }
@@ -33,15 +33,17 @@ public class StringCalculator {
             String[] numsplit = input.split(",|\n");
             for (int i = 0; i < numsplit.length; i++) {
                 int number = Integer.parseInt(numsplit[i]);
-                sum += number;
                 if (number < 0) {
                     negatives.add(number);
+                }
+                else if (number >= 0 && number < 1001) {
+                    sum += number;
                 }
             }
         }
         else if (!input.isEmpty()) {
             int number = Integer.parseInt(input);
-            if (number >= 0) {
+            if (number >= 0 && number < 1001) {
                 sum += number;
             }
             else if (number < 0) {
