@@ -11,10 +11,6 @@ public class StringCalculator {
         }
         else if (input.contains(",")) {
             String[] numsplit = input.split(",");
-            if (numsplit.length > 2) {
-                System.out.print("The method can take up to two numbers");
-                System.exit(1);
-            }
             for (int i = 0; i < numsplit.length; i++) {
                 int number = Integer.parseInt(numsplit[i]);
                 sum += number;
