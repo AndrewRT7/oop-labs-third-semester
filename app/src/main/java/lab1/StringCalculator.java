@@ -1,6 +1,7 @@
 package lab1;
 
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class StringCalculator {
     public static int Add(String input) {
@@ -8,6 +9,17 @@ public class StringCalculator {
 
         if (input.isEmpty()) {
             sum = 0;
+        }
+        else if (input.startsWith("//")) {
+            int delimPosition = input.indexOf("\n");
+            if (delimPosition != -1) {
+                String customDelimiter = Pattern.quote(input.substring(2, delimPosition));
+                String numbersToParse = input.substring(delimPosition + 1);
+                String[] numsplit = numbersToParse.split(customDelimiter + "|,|\n");
+                for (int i = 0; i < numsplit.length; i++) {
+                    sum += Integer.parseInt(numsplit[i]);
+                }
+            }
         }
         else if (input.contains(",") || input.contains("\n")) {
             String[] numsplit = input.split(",|\n");
