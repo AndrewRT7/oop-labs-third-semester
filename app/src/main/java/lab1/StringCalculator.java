@@ -1,31 +1,37 @@
 package lab1;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Scanner;
 
 public class StringCalculator {
     public static int Add(String input) {
         int sum = 0;
         ArrayList <Integer> negatives = new ArrayList<>();
+        ArrayList <String> customDelimiters = new ArrayList<>();
 
         if (input.isEmpty()) {
             sum = 0;
         }
         else if (input.startsWith("//")) {
-            int delimPosition = input.indexOf("\n");
-            if (delimPosition != -1) {
-                String customDelimiter = Pattern.quote(input.substring(2, delimPosition));
-                String numbersToParse = input.substring(delimPosition + 1);
-                String[] numsplit = numbersToParse.split(customDelimiter + "|,|\n");
-                for (int i = 0; i < numsplit.length; i++) {
-                    int number = Integer.parseInt(numsplit[i]);
-                    if (number < 0) {
+            Matcher matcher = Pattern.compile("\\[([^\\]]+)\\]").matcher(input);
+            if (matcher.find()) {
+                customDelimiters.add(Pattern.quote(matcher.group(1)));
+            }
+            if (customDelimiters.isEmpty()) {
+                customDelimiters.add(Pattern.quote(input.substring(2, 3)));
+            }
+            String customDelimitersPattern = String.join("|", customDelimiters);
+            String inputToParse = input.substring(input.indexOf("\n") + 1);
+            String[] numsplit = inputToParse.split(customDelimitersPattern + "|,|\n");
+            for (String numbers : numsplit) {
+                int number = Integer.parseInt(numbers);
+                if (number >= 0 && number < 1001) {
+                    sum += number;
+                } 
+                else if (number < 0) {
                     negatives.add(number);
-                    }
-                    else if (number >= 0 && number < 1001) {
-                        sum += number;
-                    }
                 }
             }
         }
@@ -33,17 +39,17 @@ public class StringCalculator {
             String[] numsplit = input.split(",|\n");
             for (int i = 0; i < numsplit.length; i++) {
                 int number = Integer.parseInt(numsplit[i]);
-                if (number < 0) {
-                    negatives.add(number);
-                }
-                else if (number >= 0 && number < 1001) {
+                if (number >= 0 && number < 1001) {
                     sum += number;
+                }
+                else if (number < 0) {
+                    negatives.add(number);
                 }
             }
         }
         else if (!input.isEmpty()) {
             int number = Integer.parseInt(input);
-            if (number >= 0 && number < 1001) {
+            if (number >= 0) {
                 sum += number;
             }
             else if (number < 0) {
