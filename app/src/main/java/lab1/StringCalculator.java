@@ -9,8 +9,8 @@ public class StringCalculator {
         if (input.isEmpty()) {
             sum = 0;
         }
-        else if (input.contains(",")) {
-            String[] numsplit = input.split(",");
+        else if (input.contains(",") || input.contains("\n")) {
+            String[] numsplit = input.split(",|\n");
             for (int i = 0; i < numsplit.length; i++) {
                 int number = Integer.parseInt(numsplit[i]);
                 sum += number;
