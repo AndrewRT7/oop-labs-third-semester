@@ -45,7 +45,6 @@ public class Matrix {
         return data;
     }
 
-
     public int getRows() {
         return rows;
     }
@@ -53,6 +52,7 @@ public class Matrix {
     public int getColumns() {
         return columns;
     }
+
 
     public void printMatrix() {
         for (int i = 0; i < rows; i++) {
@@ -62,6 +62,7 @@ public class Matrix {
             System.out.println();
         }
     }
+
 
     public void setElement(int rows, int columns, Double value) {
         data[rows][columns] = value;
@@ -154,5 +155,15 @@ public class Matrix {
             }
         }
         return result;
+    }
+
+    public Matrix transpose() {
+        Double[][] transposedData = new Double[columns][rows];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                transposedData[j][i] = data[i][j];
+            }
+        }
+        return new Matrix(transposedData);
     }
 }

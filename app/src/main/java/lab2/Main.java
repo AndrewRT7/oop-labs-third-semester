@@ -26,6 +26,7 @@ public class Main {
             System.out.println("13. Add matrices");
             System.out.println("14. Multiply matrix by scalar");
             System.out.println("15. Multiply matrix by matrix");
+            System.out.println("16. Transpose matrix");
             System.out.println("0. Exit");
             System.out.println("Your choice: ");
 
@@ -194,6 +195,18 @@ public class Main {
                     }
                     else {
                         System.out.println("Both matrices are not yet initialized.");
+                    }
+                    break;
+                case 16:
+                    if (matrix != null) {
+                        Matrix transposedMatrix = matrix.transpose();
+                        System.out.println("Original Matrix:");
+                        matrix.printMatrix();
+                        System.out.println("\nTransposed Matrix:");
+                        transposedMatrix.printMatrix();
+                    }
+                    else {
+                        System.out.println("Matrix is not yet initialized.");
                     }
                     break;
                 case 0:
