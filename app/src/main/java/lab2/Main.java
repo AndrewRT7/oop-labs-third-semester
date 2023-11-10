@@ -31,13 +31,15 @@ public class Main {
             System.out.println("15. Multiply matrix by matrix");
             System.out.println("16. Transpose matrix");
             System.out.println("17. Create a diagonal matrix");
+            System.out.println("18. Create an identity matrix");
             System.out.println("0. Exit");
-            System.out.println("Your choice: ");
+            System.out.print("Your choice: ");
 
 
             int choice = scanner.nextInt();
             int rows;
             int columns;
+            int dimension;
 
 
             switch (choice) {
@@ -217,14 +219,19 @@ public class Main {
                     break;
                 case 17:
                     System.out.print("Enter the number of elements in the diagonal vector: ");
-                    int dimension = scanner.nextInt();
+                    dimension = scanner.nextInt();
                     Double[] diagonalVector = new Double[dimension];
                    
-                    System.out.println("Enter the elements of the diagonal vector:");
+                    System.out.print("Enter the elements of the diagonal vector: ");
                     for (int i = 0; i < dimension; i++) {
                         diagonalVector[i] = scanner.nextDouble();
                     }
                     matrix = new Matrix(diagonalVector);
+                    break;
+                case 18:
+                    System.out.print("Enter the size of the identity matrix: ");
+                    dimension = scanner.nextInt();
+                    matrix = new Matrix(dimension);
                     break;
                 case 0:
                     scanner.close();
