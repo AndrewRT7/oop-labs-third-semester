@@ -135,7 +135,7 @@ public class Matrix {
         return result;
     }
 
-     public Matrix multiply(Matrix other) {
+    public Matrix multiply(Matrix other) {
         int otherRows = other.getRows();
         int otherColumns = other.getColumns();
    
@@ -156,14 +156,14 @@ public class Matrix {
         return result;
     }
 
-    public Matrix transpose() {
+    public void transpose() {
         Double[][] transposedData = new Double[columns][rows];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 transposedData[j][i] = data[i][j];
             }
         }
-        return new Matrix(transposedData);
+        this.data = transposedData;
     }
 
     public Matrix(Double[] diagonalVector) {
@@ -191,7 +191,8 @@ public class Matrix {
             for (int j = 0; j < dimension; j++) {
                 if (i == j) {
                     this.data[i][j] = 1.0;
-                } else {
+                }
+                else {
                     this.data[i][j] = 0.0;
                 }
             }
@@ -222,7 +223,7 @@ public class Matrix {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 if (j < i) {
-                    data[i][j] = 0.0;
+                    this.data[i][j] = 0.0;
                 }
             }
         }
@@ -232,7 +233,7 @@ public class Matrix {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 if (j > i) {
-                    data[i][j] = 0.0;
+                    this.data[i][j] = 0.0;
                 }
             }
         }
