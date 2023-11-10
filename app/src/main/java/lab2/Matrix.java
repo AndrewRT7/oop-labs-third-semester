@@ -113,4 +113,24 @@ public class Matrix {
         code = 31 * code + columns;
         return code;
     }
+
+    public Matrix add(Matrix other) {
+        Matrix result = new Matrix(rows, columns);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                result.setElement(i, j, this.getElement(i, j) + other.getElement(i, j));
+            }
+        }
+        return result;
+    }
+
+    public Matrix multiply(double scalar) {
+        Matrix result = new Matrix(rows, columns);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                result.setElement(i, j, this.getElement(i, j) * scalar);
+            }
+        }
+        return result;
+    }
 }

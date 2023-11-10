@@ -23,6 +23,8 @@ public class Main {
             System.out.println("10. Get matrix dimensions");
             System.out.println("11. Compare matrices");
             System.out.println("12. Generate hash code");
+            System.out.println("13. Add matrices");
+            System.out.println("14. Multiply matrix by scalar");
             System.out.println("0. Exit");
             System.out.println("Your choice: ");
 
@@ -113,7 +115,8 @@ public class Main {
                         System.out.print("Enter position: ");
                         rows = scanner.nextInt();
                         System.out.println("Row: " + Arrays.toString(matrix.getRow(rows)));
-                    } else {
+                    }
+                    else {
                         System.out.println("Matrix is not initialized. Create a matrix first.");
                     }
                     break;
@@ -122,7 +125,8 @@ public class Main {
                         System.out.print("Enter position: ");
                         columns = scanner.nextInt();
                         System.out.println("Column: " + Arrays.toString(matrix.getColumn(columns)));
-                    } else {
+                    }
+                    else {
                         System.out.println("Matrix is not yet initialized.");
                     }
                     break;
@@ -149,7 +153,30 @@ public class Main {
                     if (matrix != null) {
                         int code = matrix.hashCode();
                         System.out.println("Hash code for the matrix: " + code);
-                    } else {
+                    }
+                    else {
+                        System.out.println("Matrix is not yet initialized.");
+                    }
+                    break;
+                case 13:
+                    if (matrix != null && newMatrix != null && matrix.getRows() == newMatrix.getRows() && matrix.getColumns() == newMatrix.getColumns()) {
+                        Matrix sum = matrix.add(newMatrix);
+                        System.out.println("Result of matrix addition:");
+                        sum.printMatrix();
+                    }
+                    else {
+                        System.out.println("Both matrices are not initialized or have different dimensions. Create matrices first.");
+                    }
+                    break;
+                case 14:
+                    if (matrix != null) {
+                        System.out.print("Enter the scalar value: ");
+                        double scalar = scanner.nextDouble();
+                        Matrix scaledMatrix = matrix.multiply(scalar);
+                        System.out.println("Result of scalar multiplication:");
+                        scaledMatrix.printMatrix();
+                    }
+                    else {
                         System.out.println("Matrix is not yet initialized.");
                     }
                     break;
