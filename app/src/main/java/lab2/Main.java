@@ -30,6 +30,7 @@ public class Main {
             System.out.println("17. Create a diagonal matrix");
             System.out.println("18. Create an identity matrix");
             System.out.println("19. Create row matrix");
+            System.out.println("20. Create column matrix");
             System.out.println("0. Exit");
             System.out.print("Your choice: ");
 
@@ -234,6 +235,12 @@ public class Main {
                     int randomMatrixColumns = scanner.nextInt();
                     Matrix randomRowMatrix = Matrix.randomRowMatrix(randomMatrixColumns);
                     matrix = randomRowMatrix;
+                    break;
+                case 20:
+                    System.out.print("Enter the number of rows for the randomized column matrix: ");
+                    int randomMatrixRows = scanner.nextInt();
+                    Matrix randomColumnMatrix = Matrix.randomColumnMatrix(randomMatrixRows);
+                    matrix = randomColumnMatrix;
                     break;
                 case 0:
                     scanner.close();

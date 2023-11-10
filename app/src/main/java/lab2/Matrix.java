@@ -46,7 +46,6 @@ public class Matrix {
         return data;
     }
 
-
     public int getRows() {
         return rows;
     }
@@ -157,6 +156,7 @@ public class Matrix {
         return result;
     }
 
+
     public Matrix transpose() {
         Double[][] transposedData = new Double[columns][rows];
         for (int i = 0; i < rows; i++) {
@@ -207,5 +207,15 @@ public class Matrix {
             rowMatrix.setElement(0, i, randomValue);
         }
         return rowMatrix;
+    }
+
+    public static Matrix randomColumnMatrix(int rows) {
+        Random random = new Random();
+        Matrix columnMatrix = new Matrix(rows, 1);
+        for (int i = 0; i < rows; i++) {
+            double randomValue = random.nextDouble();
+            columnMatrix.setElement(i, 0, randomValue);
+        }
+        return columnMatrix;
     }
 }
