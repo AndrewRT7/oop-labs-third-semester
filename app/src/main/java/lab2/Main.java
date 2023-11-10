@@ -25,6 +25,7 @@ public class Main {
             System.out.println("12. Generate hash code");
             System.out.println("13. Add matrices");
             System.out.println("14. Multiply matrix by scalar");
+            System.out.println("15. Multiply matrix by matrix");
             System.out.println("0. Exit");
             System.out.println("Your choice: ");
 
@@ -178,6 +179,21 @@ public class Main {
                     }
                     else {
                         System.out.println("Matrix is not yet initialized.");
+                    }
+                    break;
+                case 15:
+                    if (matrix != null && newMatrix != null) {
+                        if (matrix.getColumns() != newMatrix.getRows()) {
+                            System.out.println("Matrix dimensions are not compatible for multiplication.");
+                        }
+                        else {
+                            Matrix result = matrix.multiply(newMatrix);
+                            System.out.println("Matrix multiplication result:");
+                            result.printMatrix();
+                        }
+                    }
+                    else {
+                        System.out.println("Both matrices are not yet initialized.");
                     }
                     break;
                 case 0:

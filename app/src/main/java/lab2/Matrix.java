@@ -45,6 +45,7 @@ public class Matrix {
         return data;
     }
 
+
     public int getRows() {
         return rows;
     }
@@ -129,6 +130,27 @@ public class Matrix {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 result.setElement(i, j, this.getElement(i, j) * scalar);
+            }
+        }
+        return result;
+    }
+
+     public Matrix multiply(Matrix other) {
+        int otherRows = other.getRows();
+        int otherColumns = other.getColumns();
+   
+        if (columns != otherRows) {
+            throw new IllegalArgumentException("Matrix dimensions are not compatible for multiplication.");
+        }
+   
+        Matrix result = new Matrix(rows, otherColumns, true);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < otherColumns; j++) {
+                Double sum = 0.0;
+                for (int k = 0; k < columns; k++) {
+                    sum += data[i][k] * other.getElement(k, j);
+                }
+                result.setElement(i, j, sum);
             }
         }
         return result;
