@@ -70,19 +70,23 @@ public class Matrix {
         }
     }
 
-    public Double getElement(int row, int col) {
-        return data[row][col];
+    public Double getElement(int rows, int columns) {
+        return data[rows][columns];
     }
    
-    public Double[] getRow(int row) {
-        return data[row];
+    public Double[] getRow(int rows) {
+        return data[rows];
     }
    
-    public Double[] getColumn(int col) {
+    public Double[] getColumn(int columns) {
         Double[] column = new Double[rows];
         for (int i = 0; i < rows; i++) {
-            column[i] = data[i][col];
+            column[i] = data[i][columns];
         }
         return column;
+    }
+
+    public int[] getDimensions() {
+        return new int[] {rows, columns};
     }
 }

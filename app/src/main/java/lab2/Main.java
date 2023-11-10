@@ -19,6 +19,7 @@ public class Main {
             System.out.println("6. Get an element.");
             System.out.println("7. Get a row");
             System.out.println("8. Get a column");
+            System.out.println("9. Get matrix dimensions");
             System.out.println("0. Exit");
             System.out.println("Your choice: ");
 
@@ -95,8 +96,7 @@ public class Main {
                         System.out.print("Enter position: ");
                         rows = scanner.nextInt();
                         System.out.println("Row: " + Arrays.toString(matrix.getRow(rows)));
-                    }
-                    else {
+                    } else {
                         System.out.println("Matrix is not initialized. Create a matrix first.");
                     }
                     break;
@@ -105,6 +105,15 @@ public class Main {
                         System.out.print("Enter position: ");
                         columns = scanner.nextInt();
                         System.out.println("Column: " + Arrays.toString(matrix.getColumn(columns)));
+                    } else {
+                        System.out.println("Matrix is not yet initialized.");
+                    }
+                    break;
+                case 9:
+                    if (matrix != null) {
+                        int[] dimensions = matrix.getDimensions();
+                        System.out.println("Rows: " + dimensions[0]);
+                        System.out.println("Columns: " + dimensions[1]);
                     }
                     else {
                         System.out.println("Matrix is not yet initialized.");
