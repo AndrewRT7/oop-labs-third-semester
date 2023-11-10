@@ -1,5 +1,6 @@
 package lab2;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -15,6 +16,9 @@ public class Main {
             System.out.println("3. Create a matrix by copying another matrix");
             System.out.println("4. Print matrix");
             System.out.println("5. Fill the matrix with values");
+            System.out.println("6. Get an element.");
+            System.out.println("7. Get a row");
+            System.out.println("8. Get a column");
             System.out.println("0. Exit");
             System.out.println("Your choice: ");
 
@@ -73,7 +77,39 @@ public class Main {
                     else {
                         System.out.println("Matrix is not yet initialized.");
                     }
-                    break;              
+                    break;
+                case 6:
+                    if (matrix != null) {
+                        System.out.print("Enter the row: ");
+                        rows = scanner.nextInt();
+                        System.out.print("Enter the column: ");
+                        columns = scanner.nextInt();
+                        System.out.println("Element value: " + matrix.getElement(rows, columns));
+                    }
+                    else {
+                        System.out.println("Matrix is not yet initialized.");
+                    }
+                    break;
+                case 7:
+                    if (matrix != null) {
+                        System.out.print("Enter position: ");
+                        rows = scanner.nextInt();
+                        System.out.println("Row: " + Arrays.toString(matrix.getRow(rows)));
+                    }
+                    else {
+                        System.out.println("Matrix is not initialized. Create a matrix first.");
+                    }
+                    break;
+                case 8:
+                    if (matrix != null) {
+                        System.out.print("Enter position: ");
+                        columns = scanner.nextInt();
+                        System.out.println("Column: " + Arrays.toString(matrix.getColumn(columns)));
+                    }
+                    else {
+                        System.out.println("Matrix is not yet initialized.");
+                    }
+                    break;
                 case 0:
                     scanner.close();
                     System.exit(0);
