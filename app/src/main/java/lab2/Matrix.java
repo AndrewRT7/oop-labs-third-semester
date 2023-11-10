@@ -1,6 +1,7 @@
 package lab2;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class Matrix {
 
@@ -44,6 +45,7 @@ public class Matrix {
     public Double[][] getData() {
         return data;
     }
+
 
     public int getRows() {
         return rows;
@@ -195,5 +197,15 @@ public class Matrix {
                 }
             }
         }
+    }
+
+    public static Matrix randomRowMatrix(int columns) {
+        Random random = new Random();
+        Matrix rowMatrix = new Matrix(1, columns);
+        for (int i = 0; i < columns; i++) {
+            double randomValue = random.nextDouble();
+            rowMatrix.setElement(0, i, randomValue);
+        }
+        return rowMatrix;
     }
 }

@@ -1,16 +1,13 @@
 package lab2;
 
-
 import java.util.Arrays;
 import java.util.Scanner;
-
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Matrix matrix = null;
         Matrix newMatrix = null;
-
 
         while (true) {
             System.out.println("\nMatrix Operations:");
@@ -32,15 +29,14 @@ public class Main {
             System.out.println("16. Transpose matrix");
             System.out.println("17. Create a diagonal matrix");
             System.out.println("18. Create an identity matrix");
+            System.out.println("19. Create row matrix");
             System.out.println("0. Exit");
             System.out.print("Your choice: ");
-
 
             int choice = scanner.nextInt();
             int rows;
             int columns;
             int dimension;
-
 
             switch (choice) {
                 case 1:
@@ -232,6 +228,12 @@ public class Main {
                     System.out.print("Enter the size of the identity matrix: ");
                     dimension = scanner.nextInt();
                     matrix = new Matrix(dimension);
+                    break;
+                case 19:
+                    System.out.print("Enter the number of columns for the randomized row matrix: ");
+                    int randomMatrixColumns = scanner.nextInt();
+                    Matrix randomRowMatrix = Matrix.randomRowMatrix(randomMatrixColumns);
+                    matrix = randomRowMatrix;
                     break;
                 case 0:
                     scanner.close();
