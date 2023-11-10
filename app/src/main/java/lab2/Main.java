@@ -14,6 +14,7 @@ public class Main {
             System.out.println("2. Create a zero matrix with specified size");
             System.out.println("3. Create a matrix by copying another matrix");
             System.out.println("4. Print matrix");
+            System.out.println("5. Fill the matrix with values");
             System.out.println("0. Exit");
             System.out.println("Your choice: ");
 
@@ -50,14 +51,29 @@ public class Main {
                         System.out.println("Original Matrix:");
                         matrix.printMatrix();
                         if (newMatrix != null) {
-                        System.out.println("Copied Matrix:");
+                        System.out.println("\nCopied Matrix:");
                         newMatrix.printMatrix();
                         }
                     }
                     else {
-                        System.out.println("Original matrix is not initialized. Create a matrix first.");
+                        System.out.println("Original matrix is not yet initialized.");
                     }
-                    break;                
+                    break;
+                case 5:
+                    if (matrix != null) {
+                        System.out.println("Enter values to fill the matrix:");
+                        Double[][] values = new Double[matrix.getRows()][matrix.getColumns()];
+                        for (int i = 0; i < matrix.getRows(); i++) {
+                            for (int j = 0; j < matrix.getColumns(); j++) {
+                            values[i][j] = scanner.nextDouble();
+                            }
+                        }
+                        matrix.fillMatrix(values);
+                    }
+                    else {
+                        System.out.println("Matrix is not yet initialized.");
+                    }
+                    break;              
                 case 0:
                     scanner.close();
                     System.exit(0);

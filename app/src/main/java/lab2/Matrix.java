@@ -43,12 +43,30 @@ public class Matrix {
         return data;
     }
 
+    public int getRows() {
+        return rows;
+    }
+   
+    public int getColumns() {
+        return columns;
+    }
+
     public void printMatrix() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 System.out.print(data[i][j] + "\t");
             }
             System.out.println();
+        }
+    }
+
+    public void setElement(int rows, int columns, Double value) {
+        data[rows][columns] = value;
+    }
+   
+    public void fillMatrix(Double[][] values) {
+        if (values.length == rows && values[0].length == columns) {
+            data = values;
         }
     }
 }
