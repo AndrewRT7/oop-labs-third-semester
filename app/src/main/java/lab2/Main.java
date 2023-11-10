@@ -16,10 +16,13 @@ public class Main {
             System.out.println("3. Create a matrix by copying another matrix");
             System.out.println("4. Print matrix");
             System.out.println("5. Fill the matrix with values");
-            System.out.println("6. Get an element.");
-            System.out.println("7. Get a row");
-            System.out.println("8. Get a column");
-            System.out.println("9. Get matrix dimensions");
+            System.out.println("6. Set element");
+            System.out.println("7. Get an element.");
+            System.out.println("8. Get a row");
+            System.out.println("9. Get a column");
+            System.out.println("10. Get matrix dimensions");
+            System.out.println("11. Compare matrices");
+            System.out.println("12. Generate hash code");
             System.out.println("0. Exit");
             System.out.println("Your choice: ");
 
@@ -85,13 +88,27 @@ public class Main {
                         rows = scanner.nextInt();
                         System.out.print("Enter the column: ");
                         columns = scanner.nextInt();
-                        System.out.println("Element value: " + matrix.getElement(rows, columns));
+                        System.out.print("Enter the value: ");
+                        Double value = scanner.nextDouble();
+                        matrix.setElement(rows, columns, value);
                     }
                     else {
                         System.out.println("Matrix is not yet initialized.");
                     }
                     break;
                 case 7:
+                    if (matrix != null) {
+                        System.out.print("Enter the row: ");
+                        rows = scanner.nextInt();
+                        System.out.print("Enter the column: ");
+                        columns = scanner.nextInt();
+                        System.out.println("Element value: " + matrix.getElement(rows, columns));
+                    }
+                    else {
+                        System.out.println("Matrix is not yet initialized.");
+                    }
+                    break;
+                case 8:
                     if (matrix != null) {
                         System.out.print("Enter position: ");
                         rows = scanner.nextInt();
@@ -100,7 +117,7 @@ public class Main {
                         System.out.println("Matrix is not initialized. Create a matrix first.");
                     }
                     break;
-                case 8:
+                case 9:
                     if (matrix != null) {
                         System.out.print("Enter position: ");
                         columns = scanner.nextInt();
@@ -109,13 +126,30 @@ public class Main {
                         System.out.println("Matrix is not yet initialized.");
                     }
                     break;
-                case 9:
+                case 10:
                     if (matrix != null) {
                         int[] dimensions = matrix.getDimensions();
                         System.out.println("Rows: " + dimensions[0]);
                         System.out.println("Columns: " + dimensions[1]);
                     }
                     else {
+                        System.out.println("Matrix is not yet initialized.");
+                    }
+                    break;
+                case 11:
+                    if (matrix != null && newMatrix != null) {
+                        boolean equal = matrix.equals(newMatrix);
+                        System.out.println("Matrices are equal: " + equal);
+                    }
+                    else {
+                        System.out.println("Both matrices are not yet initialized.");
+                    }
+                    break;
+                case 12:
+                    if (matrix != null) {
+                        int code = matrix.hashCode();
+                        System.out.println("Hash code for the matrix: " + code);
+                    } else {
                         System.out.println("Matrix is not yet initialized.");
                     }
                     break;

@@ -1,5 +1,7 @@
 package lab2;
 
+import java.util.Arrays;
+
 public class Matrix {
 
     private int rows;
@@ -88,5 +90,27 @@ public class Matrix {
 
     public int[] getDimensions() {
         return new int[] {rows, columns};
+    }
+
+    @Override
+    public boolean equals(Object x) {
+        if (this == x) return true;
+        if (x == null || getClass() != x.getClass()) return false;
+        Matrix newMatrix = (Matrix) x;
+        if (rows != newMatrix.rows || columns != newMatrix.columns) return false;
+        for (int i = 0; i < rows; i++) {
+            if (!Arrays.equals(data[i], newMatrix.data[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int code = Arrays.deepHashCode(data);
+        code = 31 * code + rows;
+        code = 31 * code + columns;
+        return code;
     }
 }
