@@ -31,6 +31,8 @@ public class Main {
             System.out.println("18. Create an identity matrix");
             System.out.println("19. Create row matrix");
             System.out.println("20. Create column matrix");
+            System.out.println("21. Get an upper triangle matrix");
+            System.out.println("22. Get a lower triangle matrix");
             System.out.println("0. Exit");
             System.out.print("Your choice: ");
 
@@ -241,6 +243,30 @@ public class Main {
                     int randomMatrixRows = scanner.nextInt();
                     Matrix randomColumnMatrix = Matrix.randomColumnMatrix(randomMatrixRows);
                     matrix = randomColumnMatrix;
+                    break;
+                case 21:
+                    if (matrix != null) {
+                        System.out.println("Original Matrix:");
+                        matrix.printMatrix();
+                        matrix.upperTriangular();
+                        System.out.println("\nMatrix converted to upper triangular form:");
+                        matrix.printMatrix();
+                    }
+                    else {
+                        System.out.println("Matrix is not yet initialized.");
+                    }
+                    break;
+                case 22:
+                    if (matrix != null) {
+                        System.out.println("Original Matrix:");
+                        matrix.printMatrix();
+                        matrix.lowerTriangular();
+                        System.out.println("\nMatrix converted to lower triangular form:");
+                        matrix.printMatrix();
+                    }
+                    else {
+                        System.out.println("Matrix is not yet initialized.");
+                    }
                     break;
                 case 0:
                     scanner.close();

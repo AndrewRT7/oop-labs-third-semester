@@ -156,7 +156,6 @@ public class Matrix {
         return result;
     }
 
-
     public Matrix transpose() {
         Double[][] transposedData = new Double[columns][rows];
         for (int i = 0; i < rows; i++) {
@@ -217,5 +216,25 @@ public class Matrix {
             columnMatrix.setElement(i, 0, randomValue);
         }
         return columnMatrix;
+    }
+
+    public void upperTriangular() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (j < i) {
+                    data[i][j] = 0.0;
+                }
+            }
+        }
+    }
+   
+    public void lowerTriangular() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (j > i) {
+                    data[i][j] = 0.0;
+                }
+            }
+        }
     }
 }
