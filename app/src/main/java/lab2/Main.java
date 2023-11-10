@@ -1,13 +1,16 @@
 package lab2;
 
+
 import java.util.Arrays;
 import java.util.Scanner;
+
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Matrix matrix = null;
         Matrix newMatrix = null;
+
 
         while (true) {
             System.out.println("\nMatrix Operations:");
@@ -27,12 +30,15 @@ public class Main {
             System.out.println("14. Multiply matrix by scalar");
             System.out.println("15. Multiply matrix by matrix");
             System.out.println("16. Transpose matrix");
+            System.out.println("17. Create a diagonal matrix");
             System.out.println("0. Exit");
             System.out.println("Your choice: ");
+
 
             int choice = scanner.nextInt();
             int rows;
             int columns;
+
 
             switch (choice) {
                 case 1:
@@ -208,6 +214,17 @@ public class Main {
                     else {
                         System.out.println("Matrix is not yet initialized.");
                     }
+                    break;
+                case 17:
+                    System.out.print("Enter the number of elements in the diagonal vector: ");
+                    int dimension = scanner.nextInt();
+                    Double[] diagonalVector = new Double[dimension];
+                   
+                    System.out.println("Enter the elements of the diagonal vector:");
+                    for (int i = 0; i < dimension; i++) {
+                        diagonalVector[i] = scanner.nextDouble();
+                    }
+                    matrix = new Matrix(diagonalVector);
                     break;
                 case 0:
                     scanner.close();

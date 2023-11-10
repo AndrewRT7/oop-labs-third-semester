@@ -53,7 +53,6 @@ public class Matrix {
         return columns;
     }
 
-
     public void printMatrix() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -62,7 +61,6 @@ public class Matrix {
             System.out.println();
         }
     }
-
 
     public void setElement(int rows, int columns, Double value) {
         data[rows][columns] = value;
@@ -136,7 +134,7 @@ public class Matrix {
         return result;
     }
 
-     public Matrix multiply(Matrix other) {
+    public Matrix multiply(Matrix other) {
         int otherRows = other.getRows();
         int otherColumns = other.getColumns();
    
@@ -165,5 +163,22 @@ public class Matrix {
             }
         }
         return new Matrix(transposedData);
+    }
+
+    public Matrix(Double[] diagonalVector) {
+        int x = diagonalVector.length;
+        this.rows = x;
+        this.columns = x;
+        this.data = new Double[x][x];
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < x; j++) {
+                if (i == j) {
+                    this.data[i][j] = diagonalVector[i];
+                }
+                else {
+                    this.data[i][j] = 0.0;
+                }
+            }
+        }
     }
 }
