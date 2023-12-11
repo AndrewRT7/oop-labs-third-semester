@@ -1,50 +1,57 @@
 package lab2;
 
 import java.util.Arrays;
-import java.util.Random;
 
 public final class ImmutableMatrix {
 
-    private int rows;
-    private int columns;
-    private Double[][] data;
-    private Double[][] dataCopy;
+    private final int rows;
+    private final int columns;
+    private final double[][] data;
 
+    // ImmutableMatrix
     public ImmutableMatrix(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
-        this.data = new Double[rows][columns];
+        this.data = new double[rows][columns];
     }
 
-    public ImmutableMatrix(Double[][] data) {
+    // Empty ImmutableMatrix
+    public ImmutableMatrix() {
+        this.rows = 0;
+        this.columns = 0;
+        this.data = new double[0][0];
+    }
+   
+    // Copy ImmutableMatrix
+    public ImmutableMatrix(Matrix matrix) {
+        this.rows = matrix.getRows();
+        this.columns = matrix.getColumns();
+        this.data = new double[rows][columns];
+        double[][] matrixData = matrix.getData();
+        for (int i = 0; i < rows; i++) {
+            System.arraycopy(matrixData[i], 0, this.data[i], 0, columns);
+        }
+    }
+
+    // ImmutableMatrix from array
+    public ImmutableMatrix(double[][] data) {
         this.rows = data.length;
         this.columns = data[0].length;
-        this.data = new Double[rows][columns];
-        this.dataCopy = new Double[rows][columns];
+        this.data = new double[rows][columns];
         for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                this.data[i][j] = data[i][j];
-                this.dataCopy[i][j] = data[i][j];
-            }
+            System.arraycopy(data[i], 0, this.data[i], 0, columns);
         }
     }
 
-    public ImmutableMatrix(int rows, int columns, boolean zeroMatrix) {
-        this.rows = rows;
-        this.columns = columns;
-        this.data = new Double[rows][columns];
-        if (zeroMatrix) {
-            for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < columns; j++) {
-                    this.data[i][j] = 0.0;
-                }
-            }
+    // Getters
+    public double[][] getData() {
+        double[][] copy = new double[rows][columns];
+        for (int i = 0; i < rows; i++) {
+            System.arraycopy(this.data[i], 0, copy[i], 0, columns);
         }
+        return copy;
     }
-
-    public Double[][] getData() {
-        return data;
-    }
+    
 
     public int getRows() {
         return rows;
@@ -54,42 +61,35 @@ public final class ImmutableMatrix {
         return columns;
     }
 
-    public void printMatrix() {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                System.out.print(data[i][j] + "\t");
-            }
-            System.out.println();
-        }
-    }
-
-    public Double getElement(int rows, int columns) {
+    public double getElement(int rows, int columns) {
         return data[rows][columns];
     }
    
-    public Double[] getRow(int rows) {
+    public double[] getRow(int rows) {
         return data[rows];
     }
    
-    public Double[] getColumn(int columns) {
-        Double[] column = new Double[rows];
+    public double[] getColumn(int columns) {
+        double[] column = new double[rows];
         for (int i = 0; i < rows; i++) {
             column[i] = data[i][columns];
         }
         return column;
     }
 
-
-    public int[] getDimensions() {
-        return new int[] {rows, columns};
+    public String getDimension() {
+        return "Rows: " + rows + ", Columns: " + columns;
     }
 
+    // Equals
     @Override
     public boolean equals(Object x) {
         if (this == x) return true;
         if (x == null || getClass() != x.getClass()) return false;
         ImmutableMatrix newMatrix = (ImmutableMatrix) x;
-        if (rows != newMatrix.rows || columns != newMatrix.columns) return false;
+        if (rows != newMatrix.rows || columns != newMatrix.columns) {
+            return false;
+        }
         for (int i = 0; i < rows; i++) {
             if (!Arrays.equals(data[i], newMatrix.data[i])) {
                 return false;
@@ -106,52 +106,48 @@ public final class ImmutableMatrix {
         return code;
     }
 
+    // Add
     public ImmutableMatrix add(ImmutableMatrix other) {
-        if (this.rows != other.rows || this.columns != other.columns) {
-            throw new IllegalArgumentException("Matrix dimensions must be the same for addition.");
-        }
-        Double[][] resultData = new Double[rows][columns];
+        ImmutableMatrix result = new ImmutableMatrix(rows, columns);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                resultData[i][j] = this.data[i][j] + other.data[i][j];
+                result.data[i][j] = this.data[i][j] + other.getElement(i, j);
             }
         }
-        return new ImmutableMatrix(resultData);
+        return result;
     }
 
+    // Multiply by scalar
     public ImmutableMatrix multiply(double scalar) {
-        Double[][] resultData = new Double[rows][columns];
+        ImmutableMatrix result = new ImmutableMatrix(rows, columns);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                resultData[i][j] = this.data[i][j] * scalar;
+                result.data[i][j] = this.data[i][j] * scalar;
             }
         }
-        return new ImmutableMatrix(resultData);
+        return result;
     }
-   
+
+    // Multiply by ImmutableMatrix
     public ImmutableMatrix multiply(ImmutableMatrix other) {
         int otherRows = other.getRows();
-        int otherColumns = other.getColumns();
-   
-        if (columns != otherRows) {
-            throw new IllegalArgumentException("Matrix dimensions are not compatible for multiplication.");
-        }
-   
-        Double[][] resultData = new Double[rows][otherColumns];
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < otherColumns; j++) {
-                Double sum = 0.0;
-                for (int k = 0; k < columns; k++) {
-                    sum += data[i][k] * other.data[k][j];
+        //if (columns != otherRows) {
+        //    throw new IllegalArgumentException("Matrix dimensions are not compatible for multiplication.");
+        //}
+        double[][] result = new double[this.rows][other.getColumns()];
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < other.getColumns(); j++) {
+                for (int k = 0; k < this.columns; k++) {
+                    result[i][j] += this.data[i][k] * other.getElement(k, j);
                 }
-                resultData[i][j] = sum;
             }
         }
-        return new ImmutableMatrix(resultData);
+        return new ImmutableMatrix(result);
     }
 
+    // Transpose
     public ImmutableMatrix transpose() {
-        Double[][] transposedData = new Double[columns][rows];
+        double[][] transposedData = new double[columns][rows];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 transposedData[j][i] = data[i][j];
@@ -160,82 +156,69 @@ public final class ImmutableMatrix {
         return new ImmutableMatrix(transposedData);
     }
 
-    public ImmutableMatrix(Double[] diagonalVector) {
-        int dimension = diagonalVector.length;
-        this.rows = dimension;
-        this.columns = dimension;
-        this.data = new Double[dimension][dimension];
+    // Diagonal ImmutableMatrix
+    public ImmutableMatrix diagonalMatrix(double[] diagonalVector) {
+        double[][] data = new double[diagonalVector.length][diagonalVector.length];
+        for (int i = 0; i < diagonalVector.length; i++) {
+            data[i][i] = diagonalVector[i];
+        }
+        return new ImmutableMatrix(data);
+    }
+
+    // Identity ImmutableMatrix
+    public ImmutableMatrix identityMatrix(int dimension) {
+        double[][] data = new double[dimension][dimension];
         for (int i = 0; i < dimension; i++) {
-            for (int j = 0; j < dimension; j++) {
-                if (i == j) {
-                    this.data[i][j] = diagonalVector[i];
-                }
-                else {
-                    this.data[i][j] = 0.0;
-                }
-            }
+            data[i][i] = 1;
         }
+        return new ImmutableMatrix(data);
     }
 
-    public ImmutableMatrix(int dimension) {
-        this.rows = dimension;
-        this.columns = dimension;
-        this.data = new Double[dimension][dimension];
-        for (int i = 0; i < dimension; i++) {
-            for (int j = 0; j < dimension; j++) {
-                if (i == j) {
-                    this.data[i][j] = 1.0;
-                }
-                else {
-                    this.data[i][j] = 0.0;
-                }
-            }
-        }
+    // Random row ImmutableMatrix
+    public static ImmutableMatrix randomRowImmutableMatrix(int columns) {
+        return new ImmutableMatrix(Matrix.randomRowMatrix(columns));
     }
 
-    public static ImmutableMatrix randomRowMatrix(int columns) {
-        Random random = new Random();
-        Double[][] rowMatrixData = new Double[1][columns];
-        for (int i = 0; i < columns; i++) {
-            rowMatrixData[0][i] = random.nextDouble();
-        }
-        return new ImmutableMatrix(rowMatrixData);
+    // Random column ImmutableMatrix
+    public static ImmutableMatrix randomColumnImmutableMatrix(int rows) {
+        return new ImmutableMatrix(Matrix.randomRowMatrix(rows));
     }
 
-    public static ImmutableMatrix randomColumnMatrix(int rows) {
-        Random random = new Random();
-        Double[][] columnMatrixData = new Double[rows][1];
+    // Triangular Immutable
+    public ImmutableMatrix[] triangularMatrix() {
+        double[][] upperTriangularData = new double[rows][columns];
+        double[][] lowerTriangularData = new double[rows][columns];
+        if (rows != columns) {
+            throw new IllegalArgumentException("Matrix must be square for Gaussian elimination.");
+        }
         for (int i = 0; i < rows; i++) {
-            columnMatrixData[i][0] = random.nextDouble();
+            System.arraycopy(data[i], 0, upperTriangularData[i], 0, columns);
         }
-        return new ImmutableMatrix(columnMatrixData);
+        for (int k = 0; k < rows; k++) {
+            lowerTriangularData[k][k] = 1.0;
+            for (int i = k + 1; i < rows; i++) {
+                double factor = upperTriangularData[i][k] / upperTriangularData[k][k];
+                lowerTriangularData[i][k] = factor;
+                for (int j = k; j < columns; j++) {
+                    double newValue = upperTriangularData[i][j] - factor * upperTriangularData[k][j];
+                    upperTriangularData[i][j] = newValue;
+                }
+            }
+        }
+        ImmutableMatrix upperTriangular = new ImmutableMatrix(upperTriangularData);
+        ImmutableMatrix lowerTriangular = new ImmutableMatrix(lowerTriangularData);
+    
+        return new ImmutableMatrix[]{upperTriangular, lowerTriangular};
     }
-
-    public ImmutableMatrix upperTriangular() {
-        Double[][] upperTriangularData = new Double[rows][columns];
+    
+    
+    // Print ImmutableMatrix
+    public void printMatrix() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                if (j < i) {
-                    upperTriangularData[i][j] = 0.0;
-                } else {
-                    upperTriangularData[i][j] = data[i][j];
-                }
+                System.out.print(data[i][j] + "\t");
             }
+            System.out.println();
         }
-        return new ImmutableMatrix(upperTriangularData);
-    }
-
-    public ImmutableMatrix lowerTriangular() {
-        Double[][] lowerTriangularData = new Double[rows][columns];
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                if (j > i) {
-                    lowerTriangularData[i][j] = 0.0;
-                } else {
-                    lowerTriangularData[i][j] = data[i][j];
-                }
-            }
-        }
-        return new ImmutableMatrix(lowerTriangularData);
     }
 }
